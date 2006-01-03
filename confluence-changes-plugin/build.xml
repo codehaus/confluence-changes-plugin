@@ -1,0 +1,50 @@
+<project name="confluence-changes-action" default="dist" basedir=".">
+	
+  <!-- set global properties for this build -->
+  <property name="src" location="src/main/java"/>
+  <property name="build" location="target"/>
+  <property name="dist" location="dist"/>
+  <property name="name" value="confluence-changes-rpc-plugin"/>
+  <property name="confluence" location="d:/apps/confluence-2.0.3-std"/>
+  <property name="confluenceHome" location="d:/data/confluence"/>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac srcdir="${src}" destdir="${build}">
+  	  <classpath>
+	    <pathelement location="${confluence}/confluence/WEB-INF/classes"/>
+        <fileset dir="${confluence}/confluence/WEB-INF/lib">
+  	      <include name="**/*.jar"/>
+  	    </fileset>
+	  </classpath>
+  	</javac>
+  	<copy file="${src}/atlassian-plugin.xml" todir="${build}"/>
+  </target>
+
+  <target name="dist" depends="compile" description="generate the distribution" >
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}"/>
+
+    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+    <jar jarfile="${dist}/${name}.jar" basedir="${build}"/>
+  </target>
+	
+  <target name="deploy" depends="dist">
+	<copy file="${dist}/${name}.jar" todir="${confluenceHome}/plugins"/>
+  </target>
+  	
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>

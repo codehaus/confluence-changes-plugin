@@ -1,0 +1,18 @@
+<atlassian-plugin name="Changes RPC Call" key="confluence.extra.xmlrpc">
+    <plugin-info>
+        <description>Plugins for the Confluence Remote API</description>
+        <vendor name="The Codehaus" url="http://www.codehaus.org/"/>
+        <version>0.1</version>
+    </plugin-info>
+    
+    <rpc-xmlrpc key="changes" 
+                name="Changes XML-RPC" 
+                class="org.codehaus.confluence.changes.ChangesRPCImpl">
+        <description>Provides an easy way to acquire the list of all changes occurring within Confluence</description>
+        <service-path>changes</service-path>
+        <published-interface>org.codehaus.confluence.changes.ChangesRPC</published-interface>
+        <authenticate>true</authenticate>
+    </rpc-xmlrpc>
+    
+</atlassian-plugin>
+
