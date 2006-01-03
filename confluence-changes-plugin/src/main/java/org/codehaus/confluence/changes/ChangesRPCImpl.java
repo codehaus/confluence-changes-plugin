@@ -14,8 +14,9 @@ import com.atlassian.confluence.pages.Page;
 import com.atlassian.confluence.rpc.SecureRpc;
 import com.atlassian.confluence.security.Permission;
 import com.atlassian.confluence.security.PermissionManager;
+import com.atlassian.confluence.user.AuthenticatedUserThreadLocal;
 import com.atlassian.confluence.user.PersonalInformation;
-import com.opensymphony.user.User;
+import com.atlassian.user.User;
 
 public class ChangesRPCImpl implements ChangesRPC, SecureRpc
 {
@@ -33,7 +34,7 @@ public class ChangesRPCImpl implements ChangesRPC, SecureRpc
 
     private User getUser()
     {
-        return com.atlassian.confluence.user.AuthenticatedUserThreadLocal.getUser();
+        return AuthenticatedUserThreadLocal.getUser();
     }
 
     private ContentEntityManager contentEntityManager;

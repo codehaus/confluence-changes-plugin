@@ -1,7 +1,7 @@
 <project name="confluence-changes-plugin" default="dist" basedir=".">
 	
   <!-- set global properties for this build -->
-  <property name="confluence" location="d:/apps/confluence-2.0.3-std"/>
+  <property name="confluence" location="d:/apps/confluence-2.1.1-std"/>
   <property name="confluenceHome" location="d:/data/confluence"/>
 	
   <property name="src" location="src/main/java"/>
