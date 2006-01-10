@@ -1,18 +1,50 @@
-<atlassian-plugin name="Changes RPC Call" key="confluence.extra.xmlrpc">
+<atlassian-plugin name="Confluence Changes RPC Plugin" key="confluence.extra.xmlrpc">
     <plugin-info>
-        <description>Plugins for the Confluence Remote API</description>
+        <description>Plugin exposing changes occurring in a Confluence instance</description>
         <vendor name="The Codehaus" url="http://www.codehaus.org/"/>
         <version>0.1</version>
     </plugin-info>
     
     <rpc-xmlrpc key="changes" 
-                name="Changes XML-RPC" 
+                name="Confluence Changes RPC Plugin implementation" 
                 class="org.codehaus.confluence.changes.ChangesRPCImpl">
+                
         <description>Provides an easy way to acquire the list of all changes occurring within Confluence</description>
         <service-path>changes</service-path>
         <published-interface>org.codehaus.confluence.changes.ChangesRPC</published-interface>
         <authenticate>true</authenticate>
+        
     </rpc-xmlrpc>
+    
+    <component key="changesRPCImplDelegatorTarget"
+        name="Confluence Changes RPC Plugin Service delegator target"
+        class="org.codehaus.confluence.changes.ChangesRPCImplDelegator"/>
+
+    <spring 
+        name="Confluence Changes RPC Plugin Service delegator"
+    		key="changesRPCImplDelegator" 
+    		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    		
+        <property name="transactionManager">
+            <ref local="transactionManager"/>
+        </property>
+        <property name="target">
+            <ref local="changesRPCImplDelegatorTarget"/>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+        <property name="proxyInterfaces">
+            <value>org.codehaus.confluence.changes.ChangesRPC</value>
+        </property>
+        <property name="postInterceptors">
+            <list>
+                <ref local="profilingInterceptor"/>
+            </list>
+        </property>
+    </spring>
     
 </atlassian-plugin>
 
