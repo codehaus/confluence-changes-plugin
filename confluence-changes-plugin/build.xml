@@ -8,7 +8,6 @@
   <property name="build" location="target"/>
   <property name="dist" location="dist"/>
   <property name="name" value="confluence-changes-plugin"/>
-
 	
   <target name="init">
     <!-- Create the build directory structure used by compile -->
