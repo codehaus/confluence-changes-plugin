@@ -6,8 +6,6 @@ By simple we mean:
  * Programmatically simple - can read all details of the change with little parsing
  * Lightweight - only the change summary is sent, no diffs etc.
  
- 
- 
 = Purpose =
 The original purpose was to provide a way of determining what had changed within Confluence in the last X seconds.
 This information is then used by our content aggregator to flush cached information.
