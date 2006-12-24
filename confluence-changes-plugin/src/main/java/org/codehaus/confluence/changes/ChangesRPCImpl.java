@@ -2,6 +2,7 @@ package org.codehaus.confluence.changes;
 
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -20,6 +21,7 @@ import com.atlassian.user.User;
 
 public class ChangesRPCImpl implements ChangesRPC, SecureRpc
 {
+
     public String login( String username, String password )
     {
         //No implementation required; intercepted by Confluence
@@ -38,20 +40,22 @@ public class ChangesRPCImpl implements ChangesRPC, SecureRpc
     }
 
     private ContentEntityManager contentEntityManager;
+
     private PermissionManager permissionManager;
 
+    @SuppressWarnings("unchecked")
     public List getChanges( String token, String lastChecked ) throws Exception
     {
         try
         {
             Date lastCheckedDate = new Date( Long.parseLong( lastChecked ) );
 
-            List<Map<String, Object>> results = new Vector<Map<String, Object>>();
-            List<ContentEntityObject> entitiesModifiedSince = contentEntityManager
-                            .getEntitiesModifiedSince( lastCheckedDate );
+            List results = new Vector();
+            List entitiesModifiedSince = contentEntityManager.getEntitiesModifiedSince( lastCheckedDate );
 
-            for ( ContentEntityObject ce : entitiesModifiedSince )
+            for ( Iterator iter = entitiesModifiedSince.iterator(); iter.hasNext(); )
             {
+                ContentEntityObject ce = ( ContentEntityObject ) iter.next();
                 if ( !permissionManager.hasPermission( getUser(), Permission.VIEW, ce ) )
                 {
                     continue;
@@ -67,28 +71,28 @@ public class ChangesRPCImpl implements ChangesRPC, SecureRpc
 
                 if ( ce instanceof PersonalInformation )
                 {
-                    PersonalInformation o = (PersonalInformation) ce;
+                    PersonalInformation o = ( PersonalInformation ) ce;
                     map.put( "type", "PersonalInformation" );
                     continue;
                 }
 
                 if ( ce instanceof Page )
                 {
-                    Page page = (Page) ce;
+                    Page page = ( Page ) ce;
                     map.put( "type", "Page" );
                     continue;
                 }
 
                 if ( ce instanceof Comment )
                 {
-                    Comment comment = (Comment) ce;
+                    Comment comment = ( Comment ) ce;
                     map.put( "type", "Comment" );
                     continue;
                 }
 
                 if ( ce instanceof BlogPost )
                 {
-                    BlogPost blogPost = (BlogPost) ce;
+                    BlogPost blogPost = ( BlogPost ) ce;
                     map.put( "type", "BlogPost" );
                     continue;
                 }
@@ -134,5 +138,10 @@ public class ChangesRPCImpl implements ChangesRPC, SecureRpc
     public void setPermissionManager( PermissionManager permissionManager )
     {
         this.permissionManager = permissionManager;
+    }
+
+    public String getSystemTime( String token )
+    {
+        return Long.toString( System.currentTimeMillis() );
     }
 }
