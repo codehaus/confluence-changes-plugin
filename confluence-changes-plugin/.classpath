@@ -2,9 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/confluence/confluence/WEB-INF/lib/xwork-1.0.3.jar"/>
 	<classpathentry kind="lib" path="/confluence/confluence/WEB-INF/classes"/>
-	<classpathentry kind="lib" path="/confluence/confluence/WEB-INF/lib/osuser-1.0-dev-6May05.jar"/>
-	<classpathentry kind="lib" path="/confluence/confluence/WEB-INF/lib/atlassian-bucket-2005.11.29.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="var" path="CONFLUENCE/confluence/WEB-INF/lib/atlassian-bucket-2006.03.14.branch.jar"/>
+	<classpathentry kind="var" path="CONFLUENCE/confluence/WEB-INF/lib/xwork-1.0.3.jar"/>
+	<classpathentry kind="var" path="CONFLUENCE/confluence/WEB-INF/lib/osuser-atl.user.jar"/>
+	<classpathentry kind="var" path="CONFLUENCE/confluence/WEB-INF/lib/atlassian-user-0.6.0e.jar"/>
+	<classpathentry kind="output" path="target"/>
 </classpath>
