@@ -43,7 +43,6 @@ public class ChangesRPCImpl implements ChangesRPC, SecureRpc
 
     private PermissionManager permissionManager;
 
-    @SuppressWarnings("unchecked")
     public List getChanges( String token, String lastChecked ) throws Exception
     {
         try
@@ -61,7 +60,7 @@ public class ChangesRPCImpl implements ChangesRPC, SecureRpc
                     continue;
                 }
 
-                Map<String, Object> map = new Hashtable<String, Object>();
+                Map map = new Hashtable();
                 results.add( map );
 
                 map.put( "id", convertLong( ce.getId() ) );

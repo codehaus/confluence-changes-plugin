@@ -66,7 +66,6 @@ public class ChangesRPCImplDelegator implements ChangesRPC, SecureRpc
                     }
 
                     final Map map = new Hashtable();
-                    results.add( map );
 
                     map.put( "id", convertLong( ce.getId() ) );
                     map.put( "lastModificationDate", convertDate( ce.getLastModificationDate() ) );
