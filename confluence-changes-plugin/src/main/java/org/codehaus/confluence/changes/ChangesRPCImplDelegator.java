@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import com.atlassian.confluence.core.ContentEntityManager;
 import com.atlassian.confluence.core.ContentEntityObject;
+import com.atlassian.confluence.pages.Page;
 import com.atlassian.confluence.rpc.SecureRpc;
 import com.atlassian.confluence.security.Permission;
 import com.atlassian.confluence.security.PermissionManager;
@@ -73,6 +74,9 @@ public class ChangesRPCImplDelegator implements ChangesRPC, SecureRpc
                     map.put( "realTitle", convertString( ce.getRealTitle() ) );
                     map.put( "type", getType( ce ) );
 
+                    if ( ce instanceof Page )
+                        addSpecificContent( map, ( Page ) ce );
+
                     results.add( map );
                 }
                 catch ( Exception e )
@@ -88,6 +92,11 @@ public class ChangesRPCImplDelegator implements ChangesRPC, SecureRpc
             e.printStackTrace();
             throw e;
         }
+    }
+
+    private void addSpecificContent(Map map, Page page)
+    {
+        map.put("spaceKey", page.getSpaceKey());
     }
 
     private String getType( ContentEntityObject ce )

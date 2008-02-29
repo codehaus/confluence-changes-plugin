@@ -8,6 +8,7 @@
   <property name="build" location="target"/>
   <property name="dist" location="dist"/>
   <property name="name" value="confluence-changes-plugin"/>
+  <property name="version" value="0.2"/>
 
 	
   <target name="init">
@@ -31,9 +32,8 @@
   <target name="dist" depends="compile" description="generate the distribution" >
     <!-- Create the distribution directory -->
     <mkdir dir="${dist}"/>
-
-    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-    <jar jarfile="${dist}/${name}.jar" basedir="${build}"/>
+    
+    <jar jarfile="${dist}/${name}-${version}.jar" basedir="${build}"/>
   </target>
 	
   <target name="deploy" depends="dist">
