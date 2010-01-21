@@ -52,7 +52,7 @@ public class ChangesRPCImplDelegator implements ChangesRPC, SecureRpc
             Date lastCheckedDate = new Date( Long.parseLong( lastChecked ) );
 
             List results = new Vector();
-            List entitiesModifiedSince = contentEntityManager.getEntitiesModifiedSince( lastCheckedDate );
+            List entitiesModifiedSince = contentEntityManager.getRecentlyModifiedForChangeDigest( lastCheckedDate );
 
             for ( Iterator iter = entitiesModifiedSince.iterator(); iter.hasNext(); )
             {
@@ -71,7 +71,7 @@ public class ChangesRPCImplDelegator implements ChangesRPC, SecureRpc
                     map.put( "id", convertLong( ce.getId() ) );
                     map.put( "lastModificationDate", convertDate( ce.getLastModificationDate() ) );
                     map.put( "lastModifierName", convertString( ce.getLastModifierName() ) );
-                    map.put( "realTitle", convertString( ce.getRealTitle() ) );
+                    map.put( "realTitle", convertString( ce.getDisplayTitle() ) );
                     map.put( "type", getType( ce ) );
 
                     if ( ce instanceof Page )
