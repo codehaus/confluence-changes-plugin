@@ -1,14 +1,14 @@
 <project name="confluence-changes-plugin" default="dist" basedir=".">
 	
   <!-- set global properties for this build -->
-  <property name="confluence" location="/opt/confluence"/>
+  <property name="confluence" location="/opt/confluence/confluence-3.0.1-std"/>
   <property name="confluenceHome" location="/opt/confluence-data"/>
 	
   <property name="src" location="src/main/java"/>
   <property name="build" location="target"/>
   <property name="dist" location="dist"/>
   <property name="name" value="confluence-changes-plugin"/>
-  <property name="version" value="0.2"/>
+  <property name="version" value="0.3"/>
 
 	
   <target name="init">
